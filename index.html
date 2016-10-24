@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <title>Flashcards</title>
+  <meta name="description" content="Italian to English flashcards">
+  <meta name="author" content="Dimitris Raviolos">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+      font-size: 1.1em;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      width: 100%;
+      background-color: #272A33;
+    }
+
+    .flashcard {
+      width: 50%;
+      height: 30%;
+      border: 2px solid #7e7e7e;
+      background-color: #f5f5f5;
+      color: #181818;
+      padding: 1%;
+      transition: all 0.5s ease;
+      resize: both;
+      overflow: auto;
+    }
+
+    body, .front, .back {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      margin: 0 auto;
+    }
+
+    .flashcard:hover {
+      background-color: #181818;
+      color: #f5f5f5;
+    }
+
+    .flashcard .front {
+      display: flex;
+    }
+
+    .flashcard .back {
+      display: none;
+    }
+
+    .flashcard:hover .front {
+      display: none;
+    }
+
+    .flashcard:hover .back {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div class="center flashcard">
+    <p class="front">essere</p>
+    <p class="back">sono sei e siamo siete sono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">avere</p>
+    <p class="back">ho hai ha abbiamo avete hanno</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">fare</p>
+    <p class="back">faccio fai fa facciamo fate fanno</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">andare</p>
+    <p class="back">vado vai va andiamo andate vanno</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">potere</p>
+    <p class="back">posso puoi può possiamo potete possono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">volere</p>
+    <p class="back">voglio vuoi vuole vogliamo volete vogliono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">venire</p>
+    <p class="back">vengo vieni viene veniamo venite vengono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">dire</p>
+    <p class="back">dico dici dice diciamo dite dicono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">sapere</p>
+    <p class="back">so sai sa sappiamo sapete sanno</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">uscire</p>
+    <p class="back">esco esci esce usciamo uscite escono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">dare</p>
+    <p class="back">do dai da diamo date danno</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">stare</p>
+    <p class="back">sto stai sta stiamo state stanno</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">cadere</p>
+    <p class="back">cado cadi cade cadiamo cadete cadono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">porre</p>
+    <p class="back">pongo poni pone poniamo ponete pongono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">tenere</p>
+    <p class="back">tengo tieni tiene teniamo tenete tengono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">valere</p>
+    <p class="back">valgo vali vale valiamo valete valgono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">vedere</p>
+    <p class="back">vado vedi vede vediamo vedete vedono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">capire</p>
+    <p class="back">capisco capisci capisce capiamo capite capiscono</p>
+  </div>
+  <div class="center flashcard">
+    <p class="front">salire</p>
+    <p class="back">salgo sali sale saliamo salite salgono</p>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script>
+    const items = $('.flashcard');
+
+    function shuffle(array) {
+      var m = array.length, t, i;
+      // While there remain elements to shuffle…
+      while (m) {
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * m--);
+        // And swap it with the current element.
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+      }
+      return array;
+    }
+
+    function show() {
+      var clone = items.slice(0);
+      shuffle(clone);
+      clone.hide();
+      clone.slice(0,1).show();
+    }
+
+    show();
+    $('body').click(show);
+  </script>
+</body>
+</html>
