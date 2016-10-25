@@ -8,6 +8,10 @@
   <meta name="author" content="Dimitris Raviolos">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/aero.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/aero.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/aero@2x.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.1/css/drawer.min.css">
   <!--[if lt IE 9]>
   <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -17,7 +21,6 @@
       padding: 0;
       margin: 0;
       font-family: 'Lato', sans-serif;
-      font-size: 1.1em;
     }
 
     html {
@@ -39,6 +42,11 @@
       transition: all 0.5s ease;
       resize: both;
       overflow: auto;
+      font-size: 1.5em;
+      word-spacing: 1em;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
     }
 
     body, .front, .back {
@@ -49,7 +57,7 @@
       margin: 0 auto;
     }
 
-    .flashcard:hover {
+    .flashcard.hover {
       background-color: #181818;
       color: #f5f5f5;
     }
@@ -62,93 +70,435 @@
       display: none;
     }
 
-    .flashcard:hover .front {
+    .flashcard.hover .front {
       display: none;
     }
 
-    .flashcard:hover .back {
+    .flashcard.hover .back {
       display: flex;
+    }
+
+    .drawer-hamburger-icon, .drawer-hamburger-icon:before, .drawer-hamburger-icon:after {
+      background-color: #f5f5f5;
+    }
+
+    .drawer-menu {
+      padding: 3%;
     }
   </style>
 </head>
-<body>
-  <div class="center flashcard">
+<body class="drawer drawer--left">
+  <header role="banner">
+    <button type="button" class="drawer-toggle drawer-hamburger">
+      <span class="sr-only">toggle navigation</span>
+      <span class="drawer-hamburger-icon"></span>
+    </button>
+    <nav class="drawer-nav" role="navigation">
+      <ul class="drawer-menu">
+        <li>
+          <input type="checkbox" id="verb" checked>
+          <label for="verb">Ρήματα</label>
+        </li>
+        <li>
+          <input type="checkbox" id="plural" checked>
+          <label for="plural">Πληθυντικοί</label>
+        </li>
+        <li>
+          <input type="checkbox" id="female" checked>
+          <label for="female">Θηλυκά</label>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="center flashcard verb">
     <p class="front">essere</p>
-    <p class="back">sono sei e siamo siete sono</p>
+    <p class="back">sono sei è siamo siete sono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">avere</p>
     <p class="back">ho hai ha abbiamo avete hanno</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">fare</p>
     <p class="back">faccio fai fa facciamo fate fanno</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">andare</p>
     <p class="back">vado vai va andiamo andate vanno</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">potere</p>
     <p class="back">posso puoi può possiamo potete possono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">volere</p>
     <p class="back">voglio vuoi vuole vogliamo volete vogliono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">venire</p>
     <p class="back">vengo vieni viene veniamo venite vengono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">dire</p>
     <p class="back">dico dici dice diciamo dite dicono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">sapere</p>
     <p class="back">so sai sa sappiamo sapete sanno</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">uscire</p>
     <p class="back">esco esci esce usciamo uscite escono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">dare</p>
     <p class="back">do dai da diamo date danno</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">stare</p>
     <p class="back">sto stai sta stiamo state stanno</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">cadere</p>
     <p class="back">cado cadi cade cadiamo cadete cadono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">porre</p>
     <p class="back">pongo poni pone poniamo ponete pongono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">tenere</p>
     <p class="back">tengo tieni tiene teniamo tenete tengono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">valere</p>
     <p class="back">valgo vali vale valiamo valete valgono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">vedere</p>
     <p class="back">vado vedi vede vediamo vedete vedono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
     <p class="front">capire</p>
     <p class="back">capisco capisci capisce capiamo capite capiscono</p>
   </div>
-  <div class="center flashcard">
+  <div class="center flashcard verb">
+    <p class="front">dovere</p>
+    <p class="back">devo devi deve dobbiamo dovete devono</p>
+  </div>
+  <div class="center flashcard verb">
     <p class="front">salire</p>
     <p class="back">salgo sali sale saliamo salite salgono</p>
   </div>
+  <div class="center flashcard female">
+    <p class="front">lo studente (θηλυκό;)</p>
+    <p class="back">la studentessa</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il professore (θηλυκό;)</p>
+    <p class="back">la professoressa</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il dottore (θηλυκό;)</p>
+    <p class="back">la dottoressa</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il poeta (θηλυκό;)</p>
+    <p class="back">la poetessa</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il principe (θηλυκό;)</p>
+    <p class="back">la principessa</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">l'uomo (θηλυκό;)</p>
+    <p class="back">la donna</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il padre (θηλυκό;)</p>
+    <p class="back">la madre</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il babbo/papà (θηλυκό;)</p>
+    <p class="back">la mamma</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il fratello (θηλυκό;)</p>
+    <p class="back">la sorella</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il marito (θηλυκό;)</p>
+    <p class="back">la moglie</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il genero (θηλυκό;)</p>
+    <p class="back">la nuora</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il padrino (θηλυκό;)</p>
+    <p class="back">la madrina</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">l'eroe (θηλυκό;)</p>
+    <p class="back">l'eroina</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il gallo (θηλυκό;)</p>
+    <p class="back">la gallina</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il re (θηλυκό;)</p>
+    <p class="back">la regina</p>
+  </div>
+  <div class="center flashcard female">
+    <p class="front">il dio (θηλυκό;)</p>
+    <p class="back">la dea</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'occhio (πληθυντικός;)</p>
+    <p class="back">gli occhi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'orologio (πληθυντικός;)</p>
+    <p class="back">gli orologi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'esercizio (πληθυντικός;)</p>
+    <p class="back">gli esercizi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il negozio (πληθυντικός;)</p>
+    <p class="back">i negozi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">lo zio (πληθυντικός;)</p>
+    <p class="back">gli zii</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'addio (πληθυντικός;)</p>
+    <p class="back">gli addii</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il banco (πληθυντικός;)</p>
+    <p class="back">i banchi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'arco (πληθυντικός;)</p>
+    <p class="back">gli archi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'albergo (πληθυντικός;)</p>
+    <p class="back">gli alberghi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il fungo (πληθυντικός;)</p>
+    <p class="back">i funghi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'amico (πληθυντικός;)</p>
+    <p class="back">gli amici</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il greco (πληθυντικός;)</p>
+    <p class="back">i greci</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il nemico (πληθυντικός;)</p>
+    <p class="back">i nemici</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il porco (πληθυντικός;)</p>
+    <p class="back">i porci</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">lo stomaco (πληθυντικός;)</p>
+    <p class="back">gli stomachi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'obbligo (πληθυντικός;)</p>
+    <p class="back">gli obblighi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il catalogo (πληθυντικός;)</p>
+    <p class="back">i cataloghi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il dialogo (πληθυντικός;)</p>
+    <p class="back">i dialoghi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'uomo (πληθυντικός;)</p>
+    <p class="back">gli uomini</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il dito (πληθυντικός;)</p>
+    <p class="back">le dita</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la moglie (πληθυντικός;)</p>
+    <p class="back">le mogli</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il ciglio (πληθυντικός;)</p>
+    <p class="back">le ciglia</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'uovo (πληθυντικός;)</p>
+    <p class="back">le uova</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il dio (πληθυντικός;)</p>
+    <p class="back">gli dei</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'ala (πληθυντικός;)</p>
+    <p class="back">le ali</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il centinaio (πληθυντικός;)</p>
+    <p class="back">le centinaia</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il sopracciglio (πληθυντικός;)</p>
+    <p class="back">le sopracciglia</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il bue (πληθυντικός;)</p>
+    <p class="back">i buoi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il riso (πληθυντικός;)</p>
+    <p class="back">le risa</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'arma (πληθυντικός;)</p>
+    <p class="back">le armi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il migliaio (πληθυντικός;)</p>
+    <p class="back">le migliaia</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la città (πληθυντικός;)</p>
+    <p class="back">le città</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la virtù (πληθυντικός;)</p>
+    <p class="back">le virtù</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il caffè (πληθυντικός;)</p>
+    <p class="back">i caffè</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il tassi (πληθυντικός;)</p>
+    <p class="back">i tassi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il re (πληθυντικός;)</p>
+    <p class="back">i re</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la gru (πληθυντικός;)</p>
+    <p class="back">le gru</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il brindisi (πληθυντικός;)</p>
+    <p class="back">i brindisi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'analisi (πληθυντικός;)</p>
+    <p class="back">i analisi</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il pigiama (πληθυντικός;)</p>
+    <p class="back">i pigiama</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il gorilla (πληθυντικός;)</p>
+    <p class="back">i gorilla</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il sosia (πληθυντικός;)</p>
+    <p class="back">i sosia</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il boia (πληθυντικός;)</p>
+    <p class="back">i boia</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la serie (πληθυντικός;)</p>
+    <p class="back">le serie</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la specie (πληθυντικός;)</p>
+    <p class="back">le specie</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la barbarie (πληθυντικός;)</p>
+    <p class="back">le barbarie</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la superficie (πληθυντικός;)</p>
+    <p class="back">le superfici</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la foto (πληθυντικός;)</p>
+    <p class="back">le foto (la fotografia)</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il cinema (πληθυντικός;)</p>
+    <p class="back">i cinema (il cinematografo)</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'auto (πληθυντικός;)</p>
+    <p class="back">le auto (l'automobile)</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la moto (πληθυντικός;)</p>
+    <p class="back">le moto (la motocicletta)</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la bici (πληθυντικός;)</p>
+    <p class="back">le bici (la bicicletta)</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il frigo (πληθυντικός;)</p>
+    <p class="back">i frigo (il frigorifero)</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'autobus (πληθυντικός;)</p>
+    <p class="back">gli autobus</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">lo sport (πληθυντικός;)</p>
+    <p class="back">gli sport</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'euro (πληθυντικός;)</p>
+    <p class="back">gli euro</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il computer (πληθυντικός;)</p>
+    <p class="back">i computer</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">l'e-mail (πληθυντικός;)</p>
+    <p class="back">le e-mail</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">il bar (πληθυντικός;)</p>
+    <p class="back">i bar</p>
+  </div>
+  <div class="center flashcard plural">
+    <p class="front">la brioche (πληθυντικός;)</p>
+    <p class="back">le brioche</p>
+  </div>
   <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.1/js/drawer.min.js"></script>
   <script>
     const items = $('.flashcard');
 
@@ -166,15 +516,48 @@
       return array;
     }
 
-    function show() {
-      var clone = items.slice(0);
-      shuffle(clone);
-      clone.hide();
-      clone.slice(0,1).show();
+    function filter(array) {
+      var clone = array.slice(0)
+      var selector = []
+
+      if($('#verb').is(":checked")) {
+        selector.push('.verb')
+      }
+
+      if($('#female').is(":checked")) {
+        selector.push('.female')
+      }
+
+      if($('#plural').is(":checked")) {
+        selector.push('.plural')
+      }
+
+      return clone.filter(selector.join(','))
     }
 
-    show();
-    $('body').click(show);
+    function show(animation) {
+      var clone = filter(items);
+      shuffle(clone);
+      items.hide();
+      clone.slice(0,1).show(animation);
+    }
+
+    function flip() {
+      if($(this).is('.hover')) {
+        show("slow")
+      }
+      $(this).toggleClass('hover')
+    }
+
+    $(document).ready(function(){
+      $('input').iCheck({
+        checkboxClass: 'icheckbox_square-aero',
+        radioClass: 'iradio_square-aero'
+      });
+      $('.drawer').drawer();
+      $('.flashcard').click(flip);
+      show("slow");
+    });
   </script>
 </body>
 </html>
