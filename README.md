@@ -11,7 +11,10 @@ You can use the menu on the left (click the button on the top left to open the d
 - irregular verbs.
 - Nouns that have irregular female forms.
 - Nouns that have irrregular plural forms.
+- prepositions.
 
 You can check any combinations of these categories; only questions from the checked categories will be shown.
+
+To add more flashcards, use the following link: https://docs.google.com/spreadsheets/d/1Uudy-LplOzKGQTFSqVOdOm8aklOqTNVbWj9JpWcsbjs/edit#gid=0
 
 If you have any suggestions, want to add content or you have found an error in a question, please contact me.
