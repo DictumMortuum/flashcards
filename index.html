@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
-  <title>Flashcards</title>
+  <title>Italian flashcards</title>
   <meta name="description" content="Italian flashcards">
   <meta name="author" content="Dimitris Raviolos">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,6 +32,20 @@
       background-color: #272A33;
     }
 
+    .loader {
+      border: 32px solid white; /* Light grey */
+      border-top: 32px solid #2489C5; /* Blue */
+      border-radius: 50%;
+      width: 240px;
+      height: 240px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     .flashcard {
       width: 100%;
       height: 100%;
@@ -49,6 +63,11 @@
       justify-content: center;
       align-items: center;
       height: 100%;
+    }
+
+    .front, .back {
+      margin-left: 5%;
+      margin-right: 5%;
     }
 
     .flashcard.hover {
@@ -111,7 +130,11 @@
       </ul>
     </nav>
   </header>
-  <div class="center flashcard"></div>
+  <div class="center flashcard">
+    <div class="front">
+      <div class="loader"></div>
+    </div>
+  </div>
   <script id="template" type="x-tmpl-mustache">
     <p class="front">{{{front}}}</p>
     <p class="back">{{{back}}}</p>
@@ -178,24 +201,44 @@
       }
     }
 
-    $(document).ready(function(){
+    function go(data, tabletop) {
+      var subset = filter(data)
+      pick(subset)
+
+      $('input').on('ifToggled', function() {
+        subset = filter(data)
+      })
+
+      $('.flashcard').click(function() {
+        show(subset)
+      })
+
+      $(document).keydown(function(e) {
+        switch(e.which) {
+          case 37: // left
+          case 38: // up
+          case 39: // right
+          case 40: // bottom
+            show(subset)
+          break;
+          default:
+            return; // exit this handler for other keys
+        }
+        e.preventDefault(); // prevent the default action (scroll / move caret)
+      });
+    }
+
+    $(document).ready(function() {
       $('input').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
       });
+
       $('.drawer').drawer();
+
       Tabletop.init({
         'key': '1Uudy-LplOzKGQTFSqVOdOm8aklOqTNVbWj9JpWcsbjs',
-        'callback': function(data, tabletop) {
-          var subset = filter(data)
-          pick(subset)
-          $('input').on('ifToggled', function() {
-            subset = filter(data)
-          })
-          $('.flashcard').click(function() {
-            show(subset)
-          })
-        },
+        'callback': go,
         'simplesheet': true
       })
     });
