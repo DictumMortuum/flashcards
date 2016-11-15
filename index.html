@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
   <title>Flashcards</title>
-  <meta name="description" content="Italian to English flashcards">
+  <meta name="description" content="Italian flashcards">
   <meta name="author" content="Dimitris Raviolos">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -42,7 +42,6 @@
       overflow: auto;
       font-size: 1.4em;
       word-spacing: 0.9em;
-      padding: 5%;
     }
 
     body, .front, .back {
@@ -112,12 +111,10 @@
       </ul>
     </nav>
   </header>
-
+  <div class="center flashcard"></div>
   <script id="template" type="x-tmpl-mustache">
-    <div class="center flashcard {{type}}">
-      <p class="front">{{{front}}}</p>
-      <p class="back">{{{back}}}</p>
-    </div>
+    <p class="front">{{{front}}}</p>
+    <p class="back">{{{back}}}</p>
   </script>
   <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
@@ -127,6 +124,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.4.3/tabletop.min.js"></script>
   <script>
     const template = $('#template').html()
+    const card = $('.flashcard')
     Mustache.parse(template)
 
     function shuffle(array) {
@@ -147,39 +145,37 @@
       var clone = []
 
       if($('#verb').is(":checked")) {
-        Array.prototype.push.apply(clone, data.verb)
+        Array.prototype.push.apply(clone, data.verb.elements)
       }
 
       if($('#female').is(":checked")) {
-        Array.prototype.push.apply(clone, data.female)
+        Array.prototype.push.apply(clone, data.female.elements)
       }
 
       if($('#plural').is(":checked")) {
-        Array.prototype.push.apply(clone, data.verb)
+        Array.prototype.push.apply(clone, data.plural.elements)
       }
 
       if($('#preposition').is(":checked")) {
-        Array.prototype.push.apply(clone, data.preposition)
+        Array.prototype.push.apply(clone, data.preposition.elements)
       }
 
       return clone
     }
 
-    function show(animation) {
-      var clone = filter(items);
-      shuffle(clone);
-      clone.slice(0,1).show(animation);
+    function pick(data) {
+      var question = shuffle(data).slice(0,1)
+      var rendered = Mustache.render(template, question[0])
+      $(card).html(rendered)
     }
 
-    function flip() {
-      if($(this).is('.hover')) {
-        show("slow")
+    function show(data) {
+      if(card.is('.hover')) {
+        card.removeClass('hover')
+        pick(data)
+      } else {
+        card.addClass('hover')
       }
-      $(this).toggleClass('hover')
-    }
-
-    function check() {
-      console.log(this)
     }
 
     $(document).ready(function(){
@@ -187,15 +183,18 @@
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
       });
+      $('.drawer').drawer();
       Tabletop.init({
         'key': '1Uudy-LplOzKGQTFSqVOdOm8aklOqTNVbWj9JpWcsbjs',
         'callback': function(data, tabletop) {
-          console.log(data)
-          items = data
-          $('.drawer').drawer()
-          $('.flashcard').click(flip)
-          $("input[type='checkbox']").change(check)
-          //show("slow")
+          var subset = filter(data)
+          pick(subset)
+          $('input').on('ifToggled', function() {
+            subset = filter(data)
+          })
+          $('.flashcard').click(function() {
+            show(subset)
+          })
         },
         'simplesheet': true
       })
