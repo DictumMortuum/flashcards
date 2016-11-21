@@ -127,6 +127,10 @@
           <input type="checkbox" id="preposition" checked>
           <label for="preposition">Προθέσεις</label>
         </li>
+        <li>
+          <input type="checkbox" id="participio" checked>
+          <label for="preposition">Mετοχές Αορίστου</label>
+        </li>
       </ul>
     </nav>
   </header>
@@ -181,6 +185,10 @@
 
       if($('#preposition').is(":checked")) {
         Array.prototype.push.apply(clone, data.preposition.elements)
+      }
+
+      if($('#participio').is(":checked")) {
+        Array.prototype.push.apply(clone, data.participio.elements)
       }
 
       return clone

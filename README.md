@@ -12,6 +12,7 @@ You can use the menu on the left (click the button on the top left to open the d
 - Nouns that have irregular female forms.
 - Nouns that have irrregular plural forms.
 - prepositions.
+- participio passato.
 
 You can check any combinations of these categories; only questions from the checked categories will be shown.
 
