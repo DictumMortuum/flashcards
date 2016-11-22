@@ -12,6 +12,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/blue.png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/blue@2x.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.1/css/drawer.min.css">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
   <!--[if lt IE 9]>
   <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -154,11 +155,11 @@
     const card = $('.flashcard')
     Mustache.parse(template)
 
-    function shuffle(array) {
+    function shuffle_questions(array) {
       var m = array.length, t, i;
       // While there remain elements to shuffle…
       while (m) {
-        // Pick a remaining element…
+        // pick a remaining element…
         i = Math.floor(Math.random() * m--);
         // And swap it with the current element.
         t = array[m];
@@ -168,57 +169,44 @@
       return array;
     }
 
-    function filter(data) {
+    function filter_categories(data) {
       var clone = []
 
-      if($('#verb').is(":checked")) {
-        Array.prototype.push.apply(clone, data.verb.elements)
-      }
+      Object.keys(data).forEach(input => {
+        if($('#' + input).is(":checked")) {
+          Array.prototype.push.apply(clone, data[input].elements)
+        }
+      })
 
-      if($('#female').is(":checked")) {
-        Array.prototype.push.apply(clone, data.female.elements)
-      }
-
-      if($('#plural').is(":checked")) {
-        Array.prototype.push.apply(clone, data.plural.elements)
-      }
-
-      if($('#preposition').is(":checked")) {
-        Array.prototype.push.apply(clone, data.preposition.elements)
-      }
-
-      if($('#participio').is(":checked")) {
-        Array.prototype.push.apply(clone, data.participio.elements)
-      }
+      pick_question(clone)
 
       return clone
     }
 
-    function pick(data) {
-      var question = shuffle(data).slice(0,1)
+    function pick_question(data) {
+      var question = shuffle_questions(data).slice(0,1)
       var rendered = Mustache.render(template, question[0])
       $(card).html(rendered)
     }
 
-    function show(data) {
+    function show_question(data) {
       if(card.is('.hover')) {
         card.removeClass('hover')
-        pick(data)
+        pick_question(data)
       } else {
         card.addClass('hover')
       }
     }
 
-    function go(data, tabletop) {
-      var subset = filter(data)
-      pick(subset)
+    function flashcard_init(data, tabletop) {
+      var subset = filter_categories(data)
 
       $('input').on('ifToggled', function() {
-        subset = filter(data)
+        subset = filter_categories(data)
       })
 
       $('.flashcard').click(function() {
-        show(subset)
+        show_question(subset)
       })
 
       $(document).keydown(function(e) {
@@ -227,7 +215,7 @@
           case 38: // up
           case 39: // right
           case 40: // bottom
-            show(subset)
+            show_question(subset)
           break;
           default:
             return; // exit this handler for other keys
@@ -246,7 +234,7 @@
 
       Tabletop.init({
         'key': '1Uudy-LplOzKGQTFSqVOdOm8aklOqTNVbWj9JpWcsbjs',
-        'callback': go,
+        'callback': flashcard_init,
         'simplesheet': true
       })
     });
