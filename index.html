@@ -125,25 +125,25 @@
     const card = $('.flashcard')
     Mustache.parse(template)
 
-    function shuffle_questions(array) {
-      var m = array.length, t, i;
+    function shuffle(array) {
+      var m = array.length, t, i
 
       while (m) {
-        i = Math.floor(Math.random() * m--);
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
+        i = Math.floor(Math.random() * m--)
+        t = array[m]
+        array[m] = array[i]
+        array[i] = t
       }
 
-      return array;
+      return array
     }
 
     function filter_categories(data) {
-      var clone = []
+      var clone = Object.assign({}, data)
 
       Object.keys(data).forEach(input => {
-        if($('#' + input).is(":checked")) {
-          Array.prototype.push.apply(clone, data[input].elements)
+        if(!$('#' + input).is(':checked')) {
+          delete clone[input]
         }
       })
 
@@ -152,9 +152,18 @@
     }
 
     function pick_question(data) {
-      var question = shuffle_questions(data).slice(0,1)
-      var rendered = Mustache.render(template, question[0])
-      $(card).html(rendered)
+      var question
+      var category = shuffle(Object.keys(data)).slice(0,1)
+
+      if(data[category] !== undefined) {
+        question = shuffle(data[category].elements).slice(0,1)[0]
+      } else {
+        question = {
+          'description': 'Επιλέξτε τουλάχιστον μια κατηγορία.'
+        }
+      }
+
+      $(card).html(Mustache.render(template, question))
       card.removeClass('visible')
     }
 
