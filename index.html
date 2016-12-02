@@ -78,32 +78,7 @@
       <span class="drawer-hamburger-icon"></span>
     </button>
     <nav class="drawer-nav" role="navigation">
-      <ul class="drawer-menu">
-        <li>
-          <input type="checkbox" id="verb" checked>
-          <label for="verb">Ρήματα</label>
-        </li>
-        <li>
-          <input type="checkbox" id="plural" checked>
-          <label for="plural">Πληθυντικοί</label>
-        </li>
-        <li>
-          <input type="checkbox" id="female" checked>
-          <label for="female">Θηλυκά</label>
-        </li>
-        <li>
-          <input type="checkbox" id="preposition" checked>
-          <label for="preposition">Προθέσεις</label>
-        </li>
-        <li>
-          <input type="checkbox" id="participio" checked>
-          <label for="preposition">Mετοχές Αορίστου</label>
-        </li>
-        <li>
-          <input type="checkbox" id="futuro_semplice" checked>
-          <label for="preposition">Απλός Μέλλοντας</label>
-        </li>
-      </ul>
+      <ul class="drawer-menu"></ul>
     </nav>
   </header>
   <div class="flashcard">
@@ -114,6 +89,12 @@
     <p class="front">{{{front}}}</p>
     <p class="back">{{{back}}}</p>
   </script>
+  <script id="template-drawer" type="x-tmpl-mustache">
+    <li>
+      <input type="checkbox" id="{{{id}}}" checked>
+      <label for="{{{id}}}">{{{description}}}</label>
+    </li>
+  </script>
   <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js"></script>
@@ -121,9 +102,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.4.3/tabletop.min.js"></script>
   <script>
-    const template = $('#template').html()
+    const template = [$('#template').html(), $('#template-drawer').html()]
+    template.map(e => { Mustache.parse(e) })
     const card = $('.flashcard')
-    Mustache.parse(template)
+    const drawer = $('.drawer-menu')
 
     function shuffle(array) {
       var m = array.length, t, i
@@ -147,6 +129,7 @@
         }
       })
 
+      delete clone.drawer
       return clone
     }
 
@@ -162,7 +145,7 @@
         }
       }
 
-      $(card).html(Mustache.render(template, question))
+      $(card).html(Mustache.render(template[0], question))
       card.removeClass('visible')
     }
 
@@ -182,6 +165,9 @@
         }
       }
 
+      data.drawer.elements.forEach(d => {
+        $(drawer).append(Mustache.render(template[1], d))
+      })
       $('input').iCheck({
         'checkboxClass': 'icheckbox_square-blue',
         'radioClass': 'iradio_square-blue'
@@ -192,7 +178,7 @@
       $('input').on('ifToggled', toggle)
       $('.flashcard').click(flip)
       $(document).keydown(function(e) {
-        if(e.which < 100) {
+        if(e.which > 36 && e.which < 41) {
           flip()
           e.preventDefault()
         }
