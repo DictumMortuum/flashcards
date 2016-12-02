@@ -138,25 +138,24 @@
       return array
     }
 
-    function filter_categories(data) {
-      var clone = Object.assign({}, data)
+    function filter(categories) {
+      var clone = Object.assign({}, categories)
 
-      Object.keys(data).forEach(input => {
+      Object.keys(categories).forEach(input => {
         if(!$('#' + input).is(':checked')) {
           delete clone[input]
         }
       })
 
-      pick_question(clone)
       return clone
     }
 
-    function pick_question(data) {
+    function pick(categories) {
       var question
-      var category = shuffle(Object.keys(data)).slice(0,1)
+      var category = shuffle(Object.keys(categories)).slice(0,1)
 
-      if(data[category] !== undefined) {
-        question = shuffle(data[category].elements).slice(0,1)[0]
+      if(categories[category] !== undefined) {
+        question = shuffle(categories[category].elements).slice(0,1)[0]
       } else {
         question = {
           'description': 'Επιλέξτε τουλάχιστον μια κατηγορία.'
@@ -167,51 +166,43 @@
       card.removeClass('visible')
     }
 
-    function flip_question(data) {
-      if(card.is('.visible')) {
-        pick_question(data)
-      } else {
-        card.addClass('visible')
+    function init(data, tabletop) {
+      var questions
+
+      function toggle() {
+        questions = filter(data)
+        pick(questions)
       }
-    }
 
-    function flashcard_init(data, tabletop) {
-      var subset = filter_categories(data)
-
-      $('input').on('ifToggled', function() {
-        subset = filter_categories(data)
-      })
-
-      $('.flashcard').click(function() {
-        flip_question(subset)
-      })
-
-      $(document).keydown(function(e) {
-        switch(e.which) {
-          case 37: // left
-          case 38: // up
-          case 39: // right
-          case 40: // bottom
-            flip_question(subset)
-          break;
-          default:
-            return
+      function flip() {
+        if(card.is('.visible')) {
+          pick(questions)
+        } else {
+          card.addClass('visible')
         }
-        e.preventDefault()
-      })
-    }
+      }
 
-    $(function() {
       $('input').iCheck({
         'checkboxClass': 'icheckbox_square-blue',
         'radioClass': 'iradio_square-blue'
       })
-
       $('.drawer').drawer()
+      toggle()
 
+      $('input').on('ifToggled', toggle)
+      $('.flashcard').click(flip)
+      $(document).keydown(function(e) {
+        if(e.which < 100) {
+          flip()
+          e.preventDefault()
+        }
+      })
+    }
+
+    $(function() {
       Tabletop.init({
         'key': '1Uudy-LplOzKGQTFSqVOdOm8aklOqTNVbWj9JpWcsbjs',
-        'callback': flashcard_init,
+        'callback': init,
         'simplesheet': true
       })
     })
